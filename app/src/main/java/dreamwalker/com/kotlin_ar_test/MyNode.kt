@@ -32,8 +32,17 @@ class MyNode(context:Context, modelId : Int) : AnchorNode(){
             node.setParent(this)
             node.localPosition = Vector3(pose.tx(), pose.ty(), pose.tz())
             node.localRotation = Quaternion(pose.qx(), pose.qy(), pose.qz(), pose.qw())
-            
+            node.renderable = modelRender!!.getNow(null)
+
+
 
         }
+
+    init {
+        if (modelRender == null){
+            modelRender = ModelRenderable.builder().setRegistryId("my_model")
+                .setSource(context, modelId).build()
+        }
+    }
 
 }
